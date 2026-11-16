@@ -1,0 +1,18 @@
+# Large or generated files
+*.pyc
+__pycache__/
+*.o
+*.elf
+*.bin
+*.hex
+build/
+Debug/
+Release/
+.vscode/
+# EDA backups
+*.bak
+*-backups/
+*.kicad_prl
+# Keep data small: commit processed CSVs, not huge raw dumps
+data/raw/*.npy
+.DS_Store
