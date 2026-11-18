@@ -1,25 +1,20 @@
 # How EIT Works (Design Note 00)
-**Author:** Nahom Zeray  
-**Project:** Low-Cost 8-Electrode EIT System (AAU Senior Thesis)
+Nahom Zeray  
 
 ---
 
 ### 1. Current Flow in the Saline Tank
-* **Question:** Picture a round tank of salt water with 8 electrodes on the wall. I push a small current in at electrode 1 and out at electrode 2. Where does the current go?
-* **My Answer:** Current enters at Electrode 1 and exits at Electrode 2. Because the saline solution is a continuous volume conductor, current does not flow in a straight line. Instead, it spreads out through the water. For adjacent electrodes, most of the current stays near the tank wall between 1 and 2, while only a small portion reaches the center and the opposite boundary.
+Current enters at Electrode 1 and exits at Electrode 2. Because the saline solution is a continuous conductor, current does not flow in a straight line. Instead, it spreads out through the water. For the adjacent electrodes, most of the current stays near the tank wall between 1 and 2, while only a small portion reaches the center and the opposite boundary.
 
 ---
 
 ### 2. Effect of a Non-Conductive Object
-* **Question:** Now I put a plastic object in the tank. Plastic does not conduct. What happens to the current paths near it? What happens to the voltage I measure at the other electrodes?
-* **My Answer:** Because plastic does not conduct electricity ($\sigma \approx 0$), current cannot pass through it. The current lines spread over all available paths and squeeze around the outer surface of the object. This crowding of current around the object alters the electric field inside the tank, which produces measurable voltage changes at the sensing electrodes on the boundary—especially those closest to the object.
+ Because plastic does not conduct electricity, current cannot pass through it. The current lines spread over all available paths and squeeze around the outer surface of the object. This alters the electric field inside the tank, which produces measurable voltage changes at the sensing electrodes on the boundary, especially those closest to the object.
 
 ---
 
 ### 3. Need for Multiple Injection Pairs
-* **Question:** Why do I need many injection pairs and not just one?
-* **My Answer:** A single injection pair only illuminates the tank from one direction, providing good sensitivity near that pair but very little information elsewhere. Rotating the injection through all 8 adjacent pairs around the tank interrogates the interior from multiple angles. This provides more independent data to estimate the location and size of internal objects, although with only 8 electrodes the answer is never completely unique.
-
+ A single injection pair only illuminates the tank from one direction, providing good sensitivity near that pair but very little information elsewhere. Rotating the injection through all 8 adjacent pairs around the tank shows the interior from multiple angles. This provides more independent data to estimate the location and size of internal objects.
 ---
 
 ### 4. Throwing Away Current-Carrying Electrodes
