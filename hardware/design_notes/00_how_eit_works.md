@@ -18,25 +18,20 @@ Current enters at Electrode 1 and exits at Electrode 2. Because the saline solut
 ---
 
 ### 4. Throwing Away Current-Carrying Electrodes
-* **Question:** Adjacent pattern, 8 electrodes: 8 injections, and for each injection 5 voltage readings (the pairs that do not include the two current electrodes), so 40 readings per frame. Why are the readings that touch a current electrode thrown away?
-* **My Answer:** At the two electrodes carrying current, the 1 mA injection current creates a large, unpredictable voltage drop across the metal-to-water contact impedance ($I \times Z_c$). This contact drop is much larger than the actual signal from the water, so we discard any reading that touches a current-carrying electrode. 
+At the two electrodes carrying current, the 1 mA injection current creates a large, unpredictable voltage drop across the metal due to contact impedance. This contact drop is much larger than the actual signal from the water, so we discard any reading that touches a current-carrying electrode. 
   
-  *(Note on buffers:* The high-impedance buffers solve a different problem: on the quiet electrodes being sensed, almost zero current flows into the buffer, so there is no significant $I \times Z_c$ drop on the sensing side.)
-
+The high-impedance buffers work on the quiet electrodes being sensed, almost zero current flows into the buffer, so there is no significant drop on the sensing side.
 ---
 
 ### 5. Forward vs. Inverse Problem and Noise
-* **Question:** Forward problem: given the conductivity inside, compute the voltages. Inverse problem: given the voltages, find the conductivity. Why is the second one hard and why does it make noise worse?
-* **My Answer:** 
-  * The **Forward Problem** is direct: given the conductivity inside, solving Laplace's equation gives one exact, unique set of boundary voltages.
-  * The **Inverse Problem** is hard because we only collect 40 boundary measurements—and due to reciprocity (swapping injection and sensing pairs gives the same voltage), only 20 of these measurements are truly independent. We are trying to estimate hundreds of internal pixels from just 20 independent numbers. Furthermore, because current diffuses smoothly, changes deep in the center create only tiny voltage changes at the boundary. Many different internal arrangements produce almost identical boundary voltages. The solver cannot distinguish real tiny signals from noise, so it must be regularized (instructed to favor smooth solutions). Inverting this system magnifies tiny analog circuit noise into large image artifacts.
-  * *(Practical value:* Because reciprocal pairs should theoretically match, measuring the difference between reciprocal readings provides a built-in check of our hardware quality.)
 
+  * The **Forward Problem** is easy: if what is inside the tank is known, voltages at the electrodes can be calculated.
+
+  * The **Inverse Problem** is hard: we only have the voltages, and many different things inside the tank give almost the same voltages. Because we only collect 40 boundary measurements, and due to reciprocity, only 20 of these measurements are truly independent. We are trying to estimate hundreds of internal pixels from just 20 independent numbers. Also, because current diffuses smoothly, changes deep in the center create only tiny voltage changes at the boundary. Many different internal arrangements produce almost identical boundary voltages. The solver cannot distinguish real tiny signals from noise, so it must be regularized (instructed to favor smooth solutions)
 ---
 
 ### 6. Why EIT Images Are Blurry
-* **Question:** Why are the images blurry?
-* **My Answer:** The blur comes from two sources:
-  1. **The physics:** Electrical current diffuses and spreads out smoothly through conductive water rather than traveling in straight lines like an X-ray beam, losing fine edge details.
-  2. **The software:** Because the inverse problem is sensitive to noise, reconstruction software deliberately applies smoothing (regularization) to prevent noise from turning into fake color artifacts. 
+ The blur comes from two sources:
+  1. Electrical current diffuses and spreads out smoothly through conductive water rather than traveling in straight lines like an X-ray beam, losing fine edge details.
+  2. Because the inverse problem is sensitive to noise, reconstruction software deliberately applies smoothing to prevent noise from turning into fake color artifacts. 
   Blur and noise trade against each other, which is why keeping analog hardware noise low is critical to image quality.
